@@ -3,18 +3,16 @@ import * as React from "react";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
-
-export default function BasicSelect({ data }) {
-  const [type, setType] = React.useState("");
+export default function BasicSelect({ data, setProduct, product }) {
   return (
     <FormControl sx={{ width: 204 }}>
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"
         name="type"
-        value={type}
+        value={product.type}
         onChange={(e) => {
-          setType(e.target.value);
+          setProduct({ ...product, type: e.target.value });
         }}
       >
         {data.map((type) => {

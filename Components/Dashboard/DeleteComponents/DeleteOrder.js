@@ -1,3 +1,4 @@
+"use client";
 import { IconButton } from "@mui/material";
 import Button from "@mui/material/Button";
 import Dialog from "@mui/material/Dialog";

@@ -13,12 +13,14 @@ import { CgMenuGridR } from "react-icons/cg";
 import { useDispatch, useSelector } from "react-redux";
 import { FaUserCog } from "react-icons/fa";
 import { useState } from "react";
-import { HiUserAdd } from "react-icons/hi";
 import { BiLogOut } from "react-icons/bi";
 import UploadCSV from "./UploadCsv";
 import { navwidth, opennav } from "@/Lib/NavSlice";
 import { AddUser } from "./AddComponents/AddUser";
-const Header = ({ admin }) => {
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import { UsersList } from "./UsersLists";
+const Header = ({ admin, user, accounts }) => {
   const fullwidthNav = useSelector(navwidth);
   const dispatch = useDispatch();
   const [anchorEl, setAnchorEl] = useState(null);
@@ -36,6 +38,24 @@ const Header = ({ admin }) => {
 
   const handleClosed = () => {
     setOpen(false);
+  };
+  const router = useRouter();
+  const Logout = async () => {
+    await fetch("http://127.0.0.1:8000/accounts/logout/", {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("key")}`,
+      },
+    })
+      .then(() => {
+        Cookies.remove("key");
+        Cookies.remove("accessToken");
+      })
+      .finally(() => {
+        router.push("/");
+      });
   };
   return (
     <Box
@@ -94,7 +114,8 @@ const Header = ({ admin }) => {
             sx={{ display: { xs: "block", sm: "none" } }}
           >
             <AddUser admin={admin} />
-            <MenuItem onClick={handleClose}>
+            <UsersList admin={admin} user={user} accounts={accounts} />
+            <MenuItem onClick={Logout}>
               <ListItemIcon>
                 <BiLogOut fontSize={"25px"} />
               </ListItemIcon>

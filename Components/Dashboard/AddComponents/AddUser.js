@@ -14,6 +14,8 @@ import {
   MenuItem,
   Stack,
 } from "@mui/material";
+import Cookies from "js-cookie";
+import { useRouter } from "next/navigation";
 import { useState } from "react";
 import toast from "react-hot-toast";
 import { HiUserAdd } from "react-icons/hi";
@@ -28,7 +30,41 @@ export const AddUser = ({ admin }) => {
   const handleClose = () => {
     setOpen(false);
   };
-  const [IsAdmin, setAdmin] = useState(false);
+  const [user, setUser] = useState({
+    first_name: "",
+    last_name: "",
+    username: "",
+    password: "",
+    is_admin: false,
+  });
+  const handleChange = (e) => {
+    const { name, value, type, checked } = e.target;
+    setUser({
+      ...user,
+      [name]: type === "checkbox" ? checked : value,
+    });
+  };
+  const router = useRouter();
+  const AddUserMethod = async () => {
+    await fetch("http://127.0.0.1:8000/accounts/", {
+      method: "POST",
+      body: JSON.stringify(user),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("key")}`,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        router.refresh();
+        toast.success("تمت بنجاح");
+        return handleClose();
+      } else {
+        const data = res.json();
+        toast.error(data);
+      }
+    });
+  };
   return (
     <>
       <ListItem
@@ -40,7 +76,11 @@ export const AddUser = ({ admin }) => {
           display: { xs: "none", sm: "flex" },
         }}
       >
-        <ListItemButton disabled={!admin} onClick={handleClickOpen}>
+        <ListItemButton
+          disabled={!admin}
+          sx={{ display: !admin && "none" }}
+          onClick={handleClickOpen}
+        >
           <ListItemIcon>
             <HiUserAdd size={"22px"} />
           </ListItemIcon>
@@ -52,7 +92,7 @@ export const AddUser = ({ admin }) => {
       </ListItem>
       <MenuItem
         disabled={!admin}
-        sx={{ display: { xs: "flex", sm: "none" } }}
+        sx={{ display: { xs: !admin ? "none" : "flex", sm: "none" } }}
         onClick={handleClickOpen}
       >
         <ListItemIcon>
@@ -64,20 +104,7 @@ export const AddUser = ({ admin }) => {
         </ListItemText>
       </MenuItem>
       <Dialog open={open} onClose={handleClose}>
-        <Stack
-          padding={"1rem 3rem 2rem 3rem"}
-          position={"relative"}
-          component={"form"}
-          action={async (data) => {
-            const result = await AddUserAction(data);
-            if (result.hasOwnProperty("username")) {
-              handleClose();
-              return toast.success("تم اضافه مستخدم ");
-            } else {
-              return toast.error(result);
-            }
-          }}
-        >
+        <Stack padding={"1rem 3rem 2rem 3rem"} position={"relative"}>
           <Box
             alignSelf={"center "}
             fontSize="16px"
@@ -117,6 +144,8 @@ export const AddUser = ({ admin }) => {
                     width: "100%",
                   }}
                   name="first_name"
+                  onChange={handleChange}
+                  value={user.first_name}
                 />
               </Stack>
               <Stack
@@ -143,6 +172,8 @@ export const AddUser = ({ admin }) => {
                     width: "100%",
                   }}
                   name="last_name"
+                  onChange={handleChange}
+                  value={user.last_name}
                 />
               </Stack>
             </Stack>
@@ -166,6 +197,8 @@ export const AddUser = ({ admin }) => {
                   width: "100%",
                 }}
                 name="username"
+                onChange={handleChange}
+                value={user.username}
               />
             </Stack>
             <Stack
@@ -206,6 +239,8 @@ export const AddUser = ({ admin }) => {
                   width: "100%",
                 }}
                 name="password"
+                onChange={handleChange}
+                value={user.password}
               />
             </Stack>
             <FormGroup sx={{ alignSelf: "flex-end" }}>
@@ -214,8 +249,8 @@ export const AddUser = ({ admin }) => {
                 control={<Checkbox />}
                 label="عضو مشرف ؟"
                 name="is_admin"
-                value={IsAdmin}
-                onChange={(e) => setAdmin(e.target.checked)}
+                onChange={handleChange}
+                value={user.is_admin}
               />
             </FormGroup>
           </Stack>
@@ -231,7 +266,7 @@ export const AddUser = ({ admin }) => {
               },
             }}
             marginTop="3rem"
-            type="submit"
+            onClick={AddUserMethod}
           >
             تسجيل
           </Box>

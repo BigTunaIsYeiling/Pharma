@@ -1,10 +1,13 @@
 "use client";
-import { AddProductAction, AddTypeAction } from "@/Lib/actions";
+import { AddProductAction } from "@/Lib/actions";
 import { Box, Button, Dialog, IconButton, Stack, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
 import BasicSelect from "../ProductsView/ProductsTypesSelection";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
+import toast from "react-hot-toast";
 export const AddProduct = ({ types }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -12,6 +15,43 @@ export const AddProduct = ({ types }) => {
   };
   const handleClose = () => {
     setOpen(false);
+  };
+  const router = useRouter();
+  const [product, setProduct] = useState({
+    type: "",
+    barcode: "",
+    expiration: "",
+  });
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setProduct({
+      ...product,
+      [name]: value,
+    });
+  };
+  const AddProductMethod = async () => {
+    await fetch("http://127.0.0.1:8000/products/", {
+      method: "POST",
+      body: JSON.stringify(product),
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("key")}`,
+      },
+    }).then((res) => {
+      if (res.ok) {
+        setProduct({
+          type: "",
+          barcode: "",
+          expiration: "",
+        });
+        router.refresh();
+        return toast.success("تمت بنجاح");
+      } else {
+        const data = res.json();
+        return toast.error(data);
+      }
+    });
   };
   return (
     <>
@@ -23,14 +63,12 @@ export const AddProduct = ({ types }) => {
       <Dialog open={open} onClose={handleClose}>
         <Box padding={"3rem"} sx={{ direction: "rtl" }}>
           <Box fontWeight={600}>اضافه منتج</Box>
-          <Stack
-            direction={"column"}
-            spacing={"10px"}
-            marginTop={"1rem"}
-            component={"form"}
-            action={AddProductAction}
-          >
-            <BasicSelect data={types} />
+          <Stack direction={"column"} spacing={"10px"} marginTop={"1rem"}>
+            <BasicSelect
+              data={types}
+              product={product}
+              setProduct={setProduct}
+            />
             <Box
               component={"input"}
               autoCorrect={"false"}
@@ -49,6 +87,8 @@ export const AddProduct = ({ types }) => {
               }}
               placeholder={"الكود"}
               name="barcode"
+              onChange={handleChange}
+              value={product.barcode}
             />
             <Box
               component={"input"}
@@ -69,6 +109,7 @@ export const AddProduct = ({ types }) => {
               }}
               placeholder={"الانتهاء"}
               name="expiration"
+              onChange={handleChange}
               type="date"
               onFocus={(e) => {
                 e.target.type = "date";
@@ -88,7 +129,7 @@ export const AddProduct = ({ types }) => {
                 },
                 alignSelf: "flex-end",
               }}
-              type="submit"
+              onClick={AddProductMethod}
             >
               تاكيد
             </Button>

@@ -82,6 +82,14 @@ export const PurchasesTable = ({ purchases }) => {
                 whiteSpace: "nowrap",
               }}
             >
+              تعديل
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
               حذف
             </TableCell>
           </TableRow>

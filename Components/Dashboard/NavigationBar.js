@@ -28,7 +28,8 @@ import Link from "next/link";
 import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { AddUser } from "./AddComponents/AddUser";
-const NavigationBar = ({ admin }) => {
+import { UsersList } from "./UsersLists";
+const NavigationBar = ({ admin, user, accounts }) => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -122,7 +123,16 @@ const NavigationBar = ({ admin }) => {
               },
             }}
           >
-            <ListItemButton LinkComponent={Link} href={opt.path}>
+            <ListItemButton
+              LinkComponent={Link}
+              href={opt.path}
+              disabled={(i === 5 && !admin) || (i === 6 && !admin)}
+              sx={{
+                display:
+                  (i === 5 && !admin && "none") ||
+                  (i === 6 && !admin && "none"),
+              }}
+            >
               <ListItemIcon>
                 {i === 1 && (
                   <SiProducthunt
@@ -187,6 +197,7 @@ const NavigationBar = ({ admin }) => {
       <Divider />
       <List>
         <AddUser admin={admin} />
+        <UsersList admin={admin} user={user} accounts={accounts} />
       </List>
       <List
         sx={{ position: "absolute", bottom: "5%", left: "0", width: "100%" }}

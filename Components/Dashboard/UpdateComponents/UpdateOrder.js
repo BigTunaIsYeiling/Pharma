@@ -53,7 +53,7 @@ export const UpdateOrder = ({
         return router.refresh();
       } else {
         const data = await res.json();
-        console.log(data);
+        return toast.error(data);
       }
     });
   };
