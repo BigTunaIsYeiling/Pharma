@@ -41,7 +41,7 @@ const OrderRows = ({
             whiteSpace: "nowrap",
           }}
         >
-          {customer.name}
+          {customer ? customer.name : "مشتري"}
         </TableCell>
         <TableCell
           align="right"
@@ -64,7 +64,7 @@ const OrderRows = ({
         </TableCell>
         <TableCell align="right">
           <UpdateOrder
-            customerId={customer.id}
+            customerId={customer?.id}
             customers={customers}
             products={products}
             orderId={id}
