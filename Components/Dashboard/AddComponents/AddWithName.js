@@ -53,10 +53,11 @@ export const AddWithName = ({ products, items, setItems }) => {
                   product: {
                     id: product,
                   },
-                  amount: Number(amount),
+                  amount: Number(amount) === 0 ? 1 : Number(amount),
                   price:
                     products.find((p) => p.id === product).type
-                      .price_per_element * Number(amount),
+                      .price_per_element *
+                    (Number(amount) === 0 ? 1 : Number(amount)),
                 },
               ];
             });

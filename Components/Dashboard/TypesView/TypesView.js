@@ -23,7 +23,7 @@ const TypesView = ({ types }) => {
               fontSize={{ xs: "14px", sm: "16px" }}
               marginRight={"8px"}
             >
-              الأنواع
+              الاصناف
             </Box>
           </Stack>
           <Stack direction={"row"} alignItems={"center"} spacing={2}>

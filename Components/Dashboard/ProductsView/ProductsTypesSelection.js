@@ -5,7 +5,14 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 export default function BasicSelect({ data, setProduct, product }) {
   return (
-    <FormControl sx={{ width: 204 }}>
+    <FormControl
+      sx={{
+        width: 204,
+        "& .MuiInputBase-root": {
+          height: "40px",
+        },
+      }}
+    >
       <Select
         labelId="demo-simple-select-label"
         id="demo-simple-select"

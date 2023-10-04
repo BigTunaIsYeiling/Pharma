@@ -15,14 +15,14 @@ export const AddType = () => {
   };
   return (
     <>
-      <Tooltip title="اضافه نوع" arrow>
+      <Tooltip title="اضافه صنف" arrow>
         <IconButton onClick={handleClickOpen}>
           <MdAddCircle color="black" />
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
         <Box padding={"3rem"} sx={{ direction: "rtl" }}>
-          <Box fontWeight={600}>اضافه نوع</Box>
+          <Box fontWeight={600}>اضافه صنف</Box>
           <Stack
             direction={"column"}
             spacing={"10px"}

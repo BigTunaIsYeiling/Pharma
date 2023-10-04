@@ -65,6 +65,22 @@ const CustomersTable = ({ customers }) => {
                 whiteSpace: "nowrap",
               }}
             >
+              سجل الدفع
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
+              تسجيل حاله دفع
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
               تعديل
             </TableCell>
           </TableRow>

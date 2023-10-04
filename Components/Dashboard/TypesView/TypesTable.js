@@ -49,7 +49,15 @@ const TypesTable = ({ types }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              الاسم
+              اسم الصنف
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
+              باركود
             </TableCell>
             <TableCell
               align="right"

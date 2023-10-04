@@ -65,14 +65,6 @@ const ProductsTable = ({ products }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              الكود
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
               عدد الشرائط المتبقيه
             </TableCell>
             <TableCell

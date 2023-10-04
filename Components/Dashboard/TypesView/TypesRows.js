@@ -8,6 +8,7 @@ export default function TypesRow({
   price_per_element,
   boxes_owned,
   id,
+  barcode,
 }) {
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -15,6 +16,9 @@ export default function TypesRow({
         {i + 1}
       </TableCell>
       <TableCell align="right">{name}</TableCell>
+      <TableCell align="right">
+        {barcode === "" || !barcode ? "----" : barcode}
+      </TableCell>
       <TableCell align="right">{number_of_elements}</TableCell>
       <TableCell align="right">{price_per_element}</TableCell>
       <TableCell align="right">{boxes_owned}</TableCell>
