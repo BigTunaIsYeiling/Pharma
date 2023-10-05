@@ -9,6 +9,7 @@ const initialState = {
     orderDateType: "date",
     company: "",
     purchase: "",
+    typeBarcode: "",
   },
 };
 const FiltersSlice = createSlice({
@@ -39,6 +40,9 @@ const FiltersSlice = createSlice({
     FilterPurchase: (state, action) => {
       state.Filters.purchase = action.payload;
     },
+    FilterTypeBarcode: (state, action) => {
+      state.Filters.typeBarcode = action.payload;
+    },
   },
 });
 export const FiltersReducer = FiltersSlice.reducer;
@@ -51,5 +55,6 @@ export const {
   FilterOrderName,
   changeOrderDateType,
   FilterPurchase,
+  FilterTypeBarcode,
 } = FiltersSlice.actions;
 export const Filters = (state) => state.FiltersReducer.Filters;

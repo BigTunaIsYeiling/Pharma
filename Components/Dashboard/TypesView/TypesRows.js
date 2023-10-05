@@ -28,6 +28,7 @@ export default function TypesRow({
           name={name}
           number_of_elements={number_of_elements}
           price_per_element={price_per_element}
+          barcode={barcode}
         />
       </TableCell>
     </TableRow>

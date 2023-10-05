@@ -29,12 +29,14 @@ export async function AddTypeAction(data) {
   const price = data.get("price");
   const name = data.get("name");
   const elements = data.get("elements");
-  await fetch("http://127.0.0.1:8000/products/types/", {
+  const barcode = data.get("barcode");
+  const response = await fetch("http://127.0.0.1:8000/products/types/", {
     method: "POST",
     body: JSON.stringify({
       name,
       number_of_elements: elements,
       price_per_element: price,
+      barcode,
     }),
     headers: {
       Accept: "application/json",
@@ -42,13 +44,15 @@ export async function AddTypeAction(data) {
       Authorization: `Bearer ${cookies().get("key").value}`,
     },
   });
-  return revalidatePath("/Dashboard/Types");
+  const res = await response.json();
+  revalidatePath("/Dashboard/Types");
+  return res;
 }
 
 export async function AddCustomerAction(data) {
   const dept = data.get("dept");
   const name = data.get("name");
-  await fetch("http://127.0.0.1:8000/orders/customers/", {
+  const response = await fetch("http://127.0.0.1:8000/orders/customers/", {
     method: "POST",
     body: JSON.stringify({
       name,
@@ -60,7 +64,9 @@ export async function AddCustomerAction(data) {
       Authorization: `Bearer ${cookies().get("key").value}`,
     },
   });
-  return revalidatePath("/Dashboard/Customers");
+  const res = await response.json();
+  revalidatePath("/Dashboard/Customers");
+  return res;
 }
 export async function AddCcompanyAction(data) {
   const name = data.get("name");
@@ -84,7 +90,7 @@ export async function AddProductAction(data) {
   const barcode = data.get("barcode");
   const expiration = data.get("expiration");
   const type = data.get("type");
-  await fetch("http://127.0.0.1:8000/products/", {
+  const response = await fetch("http://127.0.0.1:8000/products/", {
     method: "POST",
     body: JSON.stringify({
       type,
@@ -97,7 +103,9 @@ export async function AddProductAction(data) {
       Authorization: `Bearer ${cookies().get("key").value}`,
     },
   });
-  return revalidatePath("/Dashboard/Products");
+  const res = await response.json();
+  revalidatePath("/Dashboard/Products");
+  return res;
 }
 export async function AddPurchaseAction(data) {
   const company = data.get("company");

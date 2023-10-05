@@ -102,6 +102,13 @@ const TypesTable = ({ types }) => {
                 return row.name.includes(filtersOption.type);
               }
             })
+            .filter((row) => {
+              if (filtersOption.typeBarcode.length === 0) {
+                return row;
+              } else {
+                return row.barcode?.includes(filtersOption.typeBarcode);
+              }
+            })
             .map((row, i) => (
               <TypesRow key={row.id} {...row} i={i} />
             ))}

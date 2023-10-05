@@ -1,5 +1,5 @@
 "use client";
-import { FilterType, Filters } from "@/Lib/FiltersSlice";
+import { FilterType, FilterTypeBarcode, Filters } from "@/Lib/FiltersSlice";
 import { Box, Drawer, IconButton, Stack, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { AiOutlineSliders } from "react-icons/ai";
@@ -22,13 +22,11 @@ export const TypeFilters = () => {
         </IconButton>
       </Tooltip>
       <Drawer open={open} onClose={handleClose} anchor="right">
-        <Stack
-          direction={"column"}
-          spacing="4rem"
-          sx={{ padding: "20px"}}
-        >
+        <Stack direction={"column"} spacing="4rem" sx={{ padding: "20px" }}>
           <Stack direction={"column"} spacing="11px">
-            <Box fontWeight={700} alignSelf={"flex-end"}>بحث</Box>
+            <Box fontWeight={700} alignSelf={"flex-end"}>
+              بحث
+            </Box>
             <Stack direction={"column"} spacing="10px">
               <Box
                 component={"input"}
@@ -43,13 +41,34 @@ export const TypeFilters = () => {
                   },
                   borderRadius: "3px",
                   fontWeight: 400,
-                  direction:"rtl",
+                  direction: "rtl",
                   boxShadow:
                     "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
                 }}
                 placeholder={"الاسم"}
                 value={filtersOption.type}
                 onChange={(e) => dispatch(FilterType(e.target.value))}
+              />
+              <Box
+                component={"input"}
+                autoCorrect={"false"}
+                paddingY={"10px"}
+                paddingX="8px"
+                sx={{
+                  outline: "0",
+                  border: "0",
+                  ":focus": {
+                    boxShadow: " rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
+                  },
+                  borderRadius: "3px",
+                  fontWeight: 400,
+                  direction: "rtl",
+                  boxShadow:
+                    "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
+                }}
+                placeholder={"الباركود"}
+                value={filtersOption.typeBarcode}
+                onChange={(e) => dispatch(FilterTypeBarcode(e.target.value))}
               />
             </Stack>
           </Stack>
