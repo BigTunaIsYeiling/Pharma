@@ -21,13 +21,15 @@ export default function ProductsSelection({ data, product, setProduct }) {
           setProduct(e.target.value);
         }}
       >
-        {data.map((prod) => {
-          return (
-            <MenuItem key={prod.type.id + prod.id} value={prod.id}>
-              {prod.type.name}
-            </MenuItem>
-          );
-        })}
+        {data
+          .filter((prod) => !prod.sold)
+          .map((prod) => {
+            return (
+              <MenuItem key={prod.type.id + prod.id} value={prod.id}>
+                {prod.type.name}
+              </MenuItem>
+            );
+          })}
       </Select>
     </FormControl>
   );
