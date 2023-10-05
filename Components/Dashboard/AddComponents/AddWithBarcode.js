@@ -1,6 +1,7 @@
 "use client";
 import { Box, Button, Stack } from "@mui/material";
 import { useState } from "react";
+import toast from "react-hot-toast";
 export const AddWithBarcode = ({ products, items, setItems }) => {
   const [barcode, setBarcode] = useState("");
   const [amount, SetAmount] = useState("");
@@ -60,16 +61,22 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
             alignSelf: "flex-end",
           }}
           onClick={() => {
+            const productFound = products.find(
+              (p) => p.type.barcode === barcode
+            );
+            if (!productFound) {
+              return toast.error("الكود غير موجود");
+            }
             setItems((prev) => {
               return [
                 ...prev,
                 {
                   product: {
-                    id: products.find((p) => p.barcode === barcode).id,
+                    id: products.find((p) => p.type.barcode === barcode).id,
                   },
                   amount: Number(amount) === 0 ? 1 : Number(amount),
                   price:
-                    products.find((p) => p.barcode === barcode).type
+                    products.find((p) => p.type.barcode === barcode).type
                       .price_per_element *
                     (Number(amount) === 0 ? 1 : Number(amount)),
                 },
