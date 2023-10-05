@@ -67,12 +67,18 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
             if (!productFound) {
               return toast.error("الكود غير موجود");
             }
+            if (productFound.sold) {
+              return toast.error("المننج مباع");
+            }
+            if (productFound.number_of_elements < Number(amount)) {
+              return toast.error("الكميه غير كافيه");
+            }
             setItems((prev) => {
               return [
                 ...prev,
                 {
                   product: {
-                    id: products.find((p) => p.type.barcode === barcode).id,
+                    id: productFound.id,
                   },
                   amount: Number(amount) === 0 ? 1 : Number(amount),
                   price:
