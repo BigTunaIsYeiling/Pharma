@@ -62,7 +62,7 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
           }}
           onClick={() => {
             const productFound = products.find(
-              (p) => p.type.barcode === barcode
+              (p) => p.type.barcode === barcode && !p.sold
             );
             if (!productFound) {
               return toast.error("الكود غير موجود");
