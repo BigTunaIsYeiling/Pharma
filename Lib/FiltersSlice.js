@@ -43,6 +43,9 @@ const FiltersSlice = createSlice({
     FilterTypeBarcode: (state, action) => {
       state.Filters.typeBarcode = action.payload;
     },
+    FilterReset: (state) => {
+      state.Filters = initialState.Filters;
+    },
   },
 });
 export const FiltersReducer = FiltersSlice.reducer;
@@ -56,5 +59,6 @@ export const {
   changeOrderDateType,
   FilterPurchase,
   FilterTypeBarcode,
+  FilterReset,
 } = FiltersSlice.actions;
 export const Filters = (state) => state.FiltersReducer.Filters;

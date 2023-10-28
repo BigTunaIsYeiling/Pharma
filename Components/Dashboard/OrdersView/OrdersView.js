@@ -4,7 +4,7 @@ import { CgMenu } from "react-icons/cg";
 import OrdersTable from "./OrdersTable";
 import { AddOrder } from "../AddComponents/AddOrder";
 import { OrderFilter } from "../Filters components/OrderFilter";
-const OrdersView = ({ orders, customers, products }) => {
+const OrdersView = ({ orders, customers, products, user }) => {
   return (
     <Box height={{ xs: "calc(100vh - 120px)", sm: "calc(100vh - 64px)" }}>
       <Stack direction={"column"} width="100%" maxHeight={"100%"}>
@@ -27,7 +27,7 @@ const OrdersView = ({ orders, customers, products }) => {
             </Box>
           </Stack>
           <Stack direction={"row"} alignItems={"center"} spacing={2}>
-            <OrderFilter data={orders} />
+            <OrderFilter data={orders} admin={user.is_admin} />
             <AddOrder customers={customers} products={products} />
           </Stack>
         </Stack>
@@ -45,6 +45,7 @@ const OrdersView = ({ orders, customers, products }) => {
             orders={orders}
             customers={customers}
             products={products}
+            admin={user.is_admin}
           />
         )}
       </Stack>

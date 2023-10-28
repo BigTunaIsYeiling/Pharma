@@ -29,6 +29,7 @@ import Cookies from "js-cookie";
 import { useRouter } from "next/navigation";
 import { AddUser } from "./AddComponents/AddUser";
 import { UsersList } from "./UsersLists";
+import { FilterReset } from "@/Lib/FiltersSlice";
 const NavigationBar = ({ admin, user, accounts }) => {
   const pathname = usePathname();
   const [open, setOpen] = useState(false);
@@ -87,6 +88,7 @@ const NavigationBar = ({ admin, user, accounts }) => {
         Cookies.remove("accessToken");
       })
       .finally(() => {
+        dispatch(FilterReset());
         router.push("/");
       });
   };

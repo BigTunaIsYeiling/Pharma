@@ -13,5 +13,5 @@ export default async function page() {
     CustomersData,
     ProductsData,
   ]);
-  return <OrdersView orders={orders} customers={customers} products={products} />;
+  return <OrdersView orders={orders} customers={customers} products={products} user={data.user} />;
 }

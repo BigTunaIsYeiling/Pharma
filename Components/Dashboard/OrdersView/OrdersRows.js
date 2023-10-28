@@ -23,12 +23,36 @@ const OrderRows = ({
   customers,
   products,
   id,
+  admin,
 }) => {
   const [open, setOpen] = useState(false);
   const date = new Date(time);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
   const day = date.getDate();
+  const Nativehour = date.getHours();
+  const minutes = date.getMinutes();
+  const hours = () => {
+    const twelveHourHour = Nativehour % 12;
+    if (twelveHourHour === 0) {
+      return 12;
+    }
+    return twelveHourHour;
+  };
+  const twelveHourHourWithSuffix = `${
+    Nativehour < 12
+      ? hours() < 4 || Nativehour % 12 === 0
+        ? "ليلًا"
+        : "صباحاً"
+      : hours() < 4
+      ? "ظهراً"
+      : "مساءً"
+  }`;
+  const formattedTime = () => {
+    const paddedHours = hours().toString().padStart(2, "0");
+    const paddedMinutes = minutes.toString().padStart(2, "0");
+    return `${paddedHours}:${paddedMinutes} ${" " + twelveHourHourWithSuffix} `;
+  };
   return (
     <>
       <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
@@ -51,6 +75,7 @@ const OrderRows = ({
         >
           {`${year} / ${month} / ${day}`}
         </TableCell>
+        <TableCell align="right">{formattedTime()}</TableCell>
         <TableCell align="right">{total_price}</TableCell>
         <TableCell align="right">{paid}</TableCell>
         <TableCell align="right">
@@ -62,19 +87,23 @@ const OrderRows = ({
             {open ? <BiUpArrowAlt color="#0C356A" /> : <BiDownArrowAlt />}
           </IconButton>
         </TableCell>
-        <TableCell align="right">
-          <UpdateOrder
-            customerId={customer?.id}
-            customers={customers}
-            products={products}
-            orderId={id}
-            OrderItems={items}
-            Orderpaid={paid}
-          />
-        </TableCell>
-        <TableCell align="right">
-          <DeleteOrder id={id} />
-        </TableCell>
+        {admin && (
+          <TableCell align="right">
+            <UpdateOrder
+              customerId={customer?.id}
+              customers={customers}
+              products={products}
+              orderId={id}
+              OrderItems={items}
+              Orderpaid={paid}
+            />
+          </TableCell>
+        )}
+        {admin && (
+          <TableCell align="right">
+            <DeleteOrder id={id} />
+          </TableCell>
+        )}
       </TableRow>
       <TableRow>
         <TableCell

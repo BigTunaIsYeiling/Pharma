@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { DateSelect } from "./DateSelect";
 import { Drawer } from "antd";
 import { SumPrices } from "../OrdersView/SumPrices";
-export const OrderFilter = ({ data }) => {
+export const OrderFilter = ({ data, admin }) => {
   const [open, setOpen] = useState(false);
   const handleClick = () => {
     setOpen(true);
@@ -63,7 +63,7 @@ export const OrderFilter = ({ data }) => {
               </Box>
               <DateSelect />
 
-              {filtersOption.orderDate && <SumPrices data={data} />}
+              {filtersOption.orderDate && admin && <SumPrices data={data} />}
             </Stack>
           </Stack>
         </Stack>

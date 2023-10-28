@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import OrderRows from "./OrdersRows";
 import { Filters } from "@/Lib/FiltersSlice";
 import { useSelector } from "react-redux";
-const OrdersTable = ({ orders, customers, products }) => {
+const OrdersTable = ({ orders, customers, products, admin }) => {
   const filtersOption = useSelector(Filters);
   return (
     <TableContainer
@@ -66,6 +66,14 @@ const OrdersTable = ({ orders, customers, products }) => {
                 whiteSpace: "nowrap",
               }}
             >
+              الوقت
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
               السعر
             </TableCell>
             <TableCell
@@ -84,22 +92,26 @@ const OrdersTable = ({ orders, customers, products }) => {
             >
               عناصر
             </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
-              تعديل
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
-              حذف
-            </TableCell>
+            {admin && (
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
+                تعديل
+              </TableCell>
+            )}
+            {admin && (
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
+                حذف
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody sx={{ position: "relative" }}>
@@ -125,6 +137,7 @@ const OrdersTable = ({ orders, customers, products }) => {
                 i={i}
                 customers={customers}
                 products={products}
+                admin={admin}
               />
             ))}
         </TableBody>
