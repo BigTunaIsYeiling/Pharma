@@ -2,6 +2,7 @@
 import { Box, Button, Stack } from "@mui/material";
 import ProductsSelection from "../OrdersView/ProductsSelection";
 import { useState } from "react";
+import toast from "react-hot-toast";
 export const AddWithName = ({ products, items, setItems }) => {
   const [product, setProduct] = useState("");
   const [amount, setAmount] = useState("");
@@ -46,6 +47,9 @@ export const AddWithName = ({ products, items, setItems }) => {
             alignSelf: "flex-end",
           }}
           onClick={() => {
+            if (product === "" || product === null || !product) {
+              return toast.error("يرجى اختيار المنتج");
+            }
             setItems((prev) => {
               return [
                 ...prev,

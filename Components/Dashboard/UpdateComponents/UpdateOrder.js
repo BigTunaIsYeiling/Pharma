@@ -66,13 +66,6 @@ export const UpdateOrder = ({
         <Box padding={"3rem"} sx={{ direction: "rtl" }}>
           <Box fontWeight={600}>تعديل طلب</Box>
           <Stack direction={"column"} marginTop={"1rem"}>
-            {customer && (
-              <BasicSelect
-                data={customers}
-                SetcustomerId={setCustomer}
-                customer={customer}
-              />
-            )}
             <AddOrderItems
               items={items}
               setItems={setItems}

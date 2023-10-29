@@ -1,11 +1,12 @@
 "use client";
 import { Box, Button, Stack } from "@mui/material";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import BasicSelect from "../ProductsView/ProductsTypesSelection";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 export const AddProductType = ({ types }) => {
+  const inputRef = useRef();
   const router = useRouter();
   const [product, setProduct] = useState({
     type: "",
@@ -35,6 +36,7 @@ export const AddProductType = ({ types }) => {
           number_of_elements: "",
           expiration: "",
         });
+        inputRef.current.value = "";
         router.refresh();
         return toast.success("تمت بنجاح");
       } else {
@@ -87,7 +89,6 @@ export const AddProductType = ({ types }) => {
             direction: "rtl",
           }}
           placeholder={"الانتهاء"}
-          name="expiration"
           onChange={handleChange}
           type="date"
           onFocus={(e) => {
@@ -96,6 +97,8 @@ export const AddProductType = ({ types }) => {
           onBlur={(e) => {
             e.target.type = "text";
           }}
+          ref={inputRef}
+          name="expiration"
         />
         <Button
           variant="contained"

@@ -61,11 +61,14 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
             alignSelf: "flex-end",
           }}
           onClick={() => {
+            if (barcode === "") {
+              return toast.error("الكود غير موجود");
+            }
             const productFound = products.find(
               (p) => p.type.barcode === barcode && !p.sold
             );
             if (!productFound) {
-              return toast.error("الكود غير موجود");
+              return toast.error("المنتج غير موجود");
             }
             if (productFound.sold) {
               return toast.error("المننج مباع");

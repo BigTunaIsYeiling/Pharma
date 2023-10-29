@@ -1,12 +1,5 @@
 "use client";
-import {
-  Box,
-  Button,
-  Dialog,
-  IconButton,
-  Stack,
-  Tooltip,
-} from "@mui/material";
+import { Box, Button, Dialog, IconButton, Stack, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
@@ -25,7 +18,7 @@ export const AddOrder = ({ customers, products }) => {
     setOpen(false);
   };
   const [items, setItems] = useState([]);
-  const [paid, setPaid] = useState("");
+  const [paid, setPaid] = useState(0);
   const [customer, setCustomer] = useState("");
   const router = useRouter();
   const calculateTotalPrice = () => {
@@ -33,6 +26,9 @@ export const AddOrder = ({ customers, products }) => {
   };
   const total = calculateTotalPrice();
   const AddOrderMethod = async () => {
+    if (items.length == 0) {
+      return toast.error("يجب عليك إضافة عناصر للطلب");
+    }
     await fetch("http://127.0.0.1:8000/orders/", {
       method: "POST",
       body: JSON.stringify({

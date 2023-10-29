@@ -1,35 +1,19 @@
 "use client";
-import * as React from "react";
-import MenuItem from "@mui/material/MenuItem";
-import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+import { Autocomplete, TextField } from "@mui/material";
 export default function BasicSelect({ data, setProduct, product }) {
   return (
-    <FormControl
-      sx={{
-        width: 204,
-        "& .MuiInputBase-root": {
-          height: "40px",
-        },
+    <Autocomplete
+      id="combo-box-demo"
+      options={data}
+      sx={{ width: 204 }}
+      getOptionLabel={(option) => option.name}
+      onChange={(e, newValue) => {
+        setProduct({ ...product, type: newValue?.id });
       }}
-    >
-      <Select
-        labelId="demo-simple-select-label"
-        id="demo-simple-select"
-        name="type"
-        value={product.type}
-        onChange={(e) => {
-          setProduct({ ...product, type: e.target.value });
-        }}
-      >
-        {data.map((type) => {
-          return (
-            <MenuItem key={type.id} value={type.id}>
-              {type.name}
-            </MenuItem>
-          );
-        })}
-      </Select>
-    </FormControl>
+      renderInput={(params) => (
+        <TextField {...params} placeholder="الصنف" variant="outlined" />
+      )}
+      renderOption={(props, option) => <li {...props}>{option.name}</li>}
+    />
   );
 }
