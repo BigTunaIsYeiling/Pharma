@@ -45,12 +45,11 @@ export const AddOrder = ({ customers, products }) => {
       },
     }).then((res) => {
       if (res.ok) {
-        router.refresh();
         toast.success("تمت بنجاح");
         setCustomer("");
         setItems([]);
         setPaid("");
-        return handleClose();
+        return router.refresh();
       } else {
         const data = res.json();
         toast.error(data);

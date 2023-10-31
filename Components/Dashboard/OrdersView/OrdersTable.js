@@ -120,7 +120,7 @@ const OrdersTable = ({ orders, customers, products, admin }) => {
               if (filtersOption.orderName.length === 0) {
                 return row;
               } else {
-                return row.customer.name.includes(filtersOption.orderName);
+                return row.customer?.name.includes(filtersOption.orderName);
               }
             })
             .filter((row) => {

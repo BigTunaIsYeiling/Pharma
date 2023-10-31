@@ -21,7 +21,6 @@ import { IoPeople } from "react-icons/io5";
 import { SiProducthunt } from "react-icons/si";
 import { useRef, useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import UploadCSV from "./UploadCsv";
 import { closenav, navwidth } from "@/Lib/NavSlice";
 import { usePathname } from "next/navigation";
 import Link from "next/link";
@@ -223,7 +222,6 @@ const NavigationBar = ({ admin, user, accounts }) => {
           </ListItemButton>
         </ListItem>
       </List>
-      <UploadCSV open={open} handleClose={handleClose} />
     </Box>
   );
 };

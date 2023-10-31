@@ -14,7 +14,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { FaUserCog } from "react-icons/fa";
 import { useState } from "react";
 import { BiLogOut } from "react-icons/bi";
-import UploadCSV from "./UploadCsv";
 import { navwidth, opennav } from "@/Lib/NavSlice";
 import { AddUser } from "./AddComponents/AddUser";
 import { useRouter } from "next/navigation";
@@ -124,7 +123,6 @@ const Header = ({ admin, user, accounts }) => {
           </Menu>
         </Toolbar>
       </AppBar>
-      <UploadCSV open={opend} handleClose={handleClosed} />
     </Box>
   );
 };

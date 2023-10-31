@@ -4,11 +4,14 @@ import Tabs from "@mui/material/Tabs";
 import Tab from "@mui/material/Tab";
 import Typography from "@mui/material/Typography";
 import Box from "@mui/material/Box";
-import { Dialog, IconButton, Tooltip } from "@mui/material";
+import { Dialog, IconButton, Paper, Tooltip } from "@mui/material";
 import { MdAddCircle } from "react-icons/md";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { AddWithBarcode } from "./AddWithBarcode";
 import { AddWithName } from "./AddWithName";
+import Draggable from "react-draggable";
+import { useDispatch, useSelector } from "react-redux";
+import { DialogPosition, Dragging } from "@/Lib/DialogSlice";
 function CustomTabPanel(props) {
   const { children, value, index, ...other } = props;
   return (
@@ -52,6 +55,23 @@ export const AddItem = ({ items, setItems, products }) => {
   const handleChange = (event, newValue) => {
     setValue(newValue);
   };
+  function PaperComponent(props) {
+    const dispatch = useDispatch();
+    const position = useSelector(DialogPosition);
+    const handleDrag = (e, data) => {
+      dispatch(Dragging({ x: data.x, y: data.y }));
+    };
+    return (
+      <Draggable
+        handle="#draggable-dialog-title"
+        cancel={'[class*="MuiDialogContent-root"]'}
+        onDrag={handleDrag}
+        position={position}
+      >
+        <Paper {...props} />
+      </Draggable>
+    );
+  }
   return (
     <>
       <Tooltip title="اضافه عنصر" arrow onClick={handleClickOpen}>
@@ -59,7 +79,12 @@ export const AddItem = ({ items, setItems, products }) => {
           <MdAddCircle color="black" />
         </IconButton>
       </Tooltip>
-      <Dialog open={open} onClose={handleClose}>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        PaperComponent={PaperComponent}
+        aria-labelledby="draggable-dialog-title"
+      >
         <Box sx={{ width: "100%", padding: 2, direction: "rtl" }}>
           <Box sx={{ borderBottom: 1, borderColor: "divider" }}>
             <Tabs
@@ -67,6 +92,8 @@ export const AddItem = ({ items, setItems, products }) => {
               onChange={handleChange}
               aria-label="basic tabs example"
               centered
+              sx={{ cursor: "move" }}
+              id="draggable-dialog-title"
             >
               <Tab label="اسم العنصر" {...a11yProps(0)} />
               <Tab label="كود العنصر" {...a11yProps(1)} />
