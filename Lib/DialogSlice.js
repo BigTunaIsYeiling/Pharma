@@ -9,7 +9,6 @@ const DialogSlice = createSlice({
   reducers: {
     Dragging: (state, action) => {
       state.position = action.payload;
-      console.log(state.position);
     },
   },
 });
