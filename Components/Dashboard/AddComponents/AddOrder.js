@@ -9,13 +9,18 @@ import { RendredItems } from "./RendredItems";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
+import HiddenInput from "@/Components/HiddenInput";
+import { Switch } from "antd";
+import { AddWithBarcode } from "./AddWithBarcode";
 export const AddOrder = ({ customers, products }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
     setOpen(true);
+    setfocused(true);
   };
   const handleClose = () => {
     setOpen(false);
+    setfocused(false);
   };
   const [items, setItems] = useState([]);
   const [paid, setPaid] = useState(0);
@@ -56,6 +61,7 @@ export const AddOrder = ({ customers, products }) => {
       }
     });
   };
+  const [focused, setfocused] = useState(true);
   return (
     <>
       <Tooltip title="اضافه طلب" arrow>
@@ -64,19 +70,38 @@ export const AddOrder = ({ customers, products }) => {
         </IconButton>
       </Tooltip>
       <Dialog open={open} onClose={handleClose}>
-        <Box padding={"3rem"} sx={{ direction: "rtl" }}>
-          <Box fontWeight={600}>اضافه طلب</Box>
+        <Box
+          padding={"3rem"}
+          sx={{ direction: "rtl", overflow: "hidden", position: "relative" }}
+        >
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Box fontWeight={600}>اضافه طلب</Box>
+            <Stack direction={"row"} sx={{ direction: "ltr" }} spacing={"3px"}>
+              <Switch checked={focused} onChange={() => setfocused(!focused)} />
+              <Box fontWeight={500}>Barcode</Box>
+            </Stack>
+          </Stack>
           <Stack direction={"column"} marginTop={"1rem"}>
             <BasicSelect
               data={customers}
               SetcustomerId={setCustomer}
               customer={customer}
             />
-            <AddOrderItems
+            <AddWithBarcode
+              focused={focused}
+              products={products}
+              items={items}
+              setItems={setItems}
+            />
+            {/* <AddOrderItems
               items={items}
               setItems={setItems}
               products={products}
-            />
+            /> */}
             {items.length > 0 && (
               <Stack
                 direction={"column"}
@@ -93,7 +118,6 @@ export const AddOrder = ({ customers, products }) => {
                     setItems={setItems}
                   />
                 ))}
-
                 <Stack
                   direction={"row"}
                   justifyContent={"space-between"}

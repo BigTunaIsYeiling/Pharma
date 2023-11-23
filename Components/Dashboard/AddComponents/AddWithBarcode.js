@@ -1,8 +1,8 @@
 "use client";
-import { Box, Button, Stack } from "@mui/material";
+import { Box } from "@mui/material";
 import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
-export const AddWithBarcode = ({ products, items, setItems }) => {
+export const AddWithBarcode = ({ products, items, setItems, focused }) => {
   const [barcode, setBarcode] = useState("");
   const [amount, SetAmount] = useState("");
   const inputRef = useRef(null);
@@ -13,7 +13,6 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
         submitFunction();
       }
       setBarcode("");
-      inputRef.current.focus();
     };
     const timeoutId = setTimeout(handleTimeout, 200);
     return () => clearTimeout(timeoutId);
@@ -45,7 +44,7 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
         return toast.error("الكميه غير كافيه");
       }
       // raise the amount of the item by one
-      return setItems((prev) => {
+      setItems((prev) => {
         return prev.map((item) => {
           if (item.product.id === productFound.id) {
             return {
@@ -60,8 +59,9 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
           return item;
         });
       });
+      return toast.success(`تم زياده الكميه`);
     }
-    return setItems((prev) => {
+    setItems((prev) => {
       return [
         ...prev,
         {
@@ -75,67 +75,41 @@ export const AddWithBarcode = ({ products, items, setItems }) => {
         },
       ];
     });
+    return toast.success(`تم الاضافه للطلب `);
   };
+  useEffect(() => {
+    if (focused) {
+      inputRef.current.focus();
+    } else {
+      inputRef.current.blur();
+    }
+  }, [focused]);
   return (
-    <Box padding={"3rem"} sx={{ direction: "rtl" }}>
-      <Box fontWeight={600}>اضافه عنصر</Box>
-      <Stack direction={"column"} spacing={"10px"} marginTop={"1rem"}>
-        <Box
-          component={"input"}
-          autoCorrect={"false"}
-          paddingY={"10px"}
-          paddingX="8px"
-          sx={{
-            outline: "0",
-            border: "0",
-            ":focus": {
-              boxShadow: " rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
-            },
-            borderRadius: "3px",
-            fontWeight: 400,
-            boxShadow:
-              "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
-          }}
-          placeholder={"الكود"}
-          value={barcode}
-          onChange={handleInputChange}
-          ref={inputRef}
-        />
-        <Box
-          component={"input"}
-          autoCorrect={"false"}
-          paddingY={"10px"}
-          paddingX="8px"
-          sx={{
-            outline: "0",
-            border: "0",
-            ":focus": {
-              boxShadow: " rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
-            },
-            borderRadius: "3px",
-            fontWeight: 400,
-            boxShadow:
-              "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
-          }}
-          placeholder={"الكميه"}
-          value={amount}
-          onChange={(e) => SetAmount(e.target.value)}
-        />
-        <Button
-          variant="contained"
-          disableElevation
-          sx={{
-            "&.MuiButton-root": {
-              fontWeight: 600,
-              textTransform: "none",
-              backgroundColor: "#0C356A",
-            },
-            alignSelf: "flex-end",
-          }}
-        >
-          تاكيد
-        </Button>
-      </Stack>
-    </Box>
+    <Box
+      component={"input"}
+      autoCorrect={"false"}
+      paddingY={"10px"}
+      paddingX="8px"
+      sx={{
+        outline: "0",
+        border: "0",
+        ":focus": {
+          boxShadow: " rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
+        },
+        borderRadius: "3px",
+        fontWeight: 400,
+        boxShadow:
+          "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
+        position: "absolute",
+        left: "2000%",
+      }}
+      placeholder={"الكود"}
+      value={barcode}
+      onChange={handleInputChange}
+      ref={inputRef}
+      onBlur={() => {
+        if (focused) inputRef.current.focus();
+      }}
+    />
   );
 };
