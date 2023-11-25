@@ -2,7 +2,7 @@
 import {
   Box,
   Collapse,
-    IconButton,
+  IconButton,
   Table,
   TableBody,
   TableCell,
@@ -124,6 +124,9 @@ const OrderRows = ({
                       الكميه
                     </TableCell>
                     <TableCell align="right" sx={{ color: "white" }}>
+                      المتبقي
+                    </TableCell>
+                    <TableCell align="right" sx={{ color: "white" }}>
                       سعر الوحده
                     </TableCell>
                     <TableCell align="right" sx={{ color: "white" }}>
@@ -140,6 +143,7 @@ const OrderRows = ({
                           {item.product.name}
                         </TableCell>
                         <TableCell align="right">{item.amount}</TableCell>
+                        <TableCell align="right">{item.remaining}</TableCell>
                         <TableCell align="right">
                           {item.product.price_per_element}
                         </TableCell>
