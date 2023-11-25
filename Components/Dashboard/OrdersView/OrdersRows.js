@@ -2,7 +2,7 @@
 import {
   Box,
   Collapse,
-  IconButton,
+    IconButton,
   Table,
   TableBody,
   TableCell,
@@ -137,11 +137,11 @@ const OrderRows = ({
                       <TableRow key={item.id}>
                         <TableCell align="right">{index + 1}</TableCell>
                         <TableCell component="th" scope="row" align="right">
-                          {item.product.type.name}
+                          {item.product.name}
                         </TableCell>
                         <TableCell align="right">{item.amount}</TableCell>
                         <TableCell align="right">
-                          {item.product.type.price_per_element}
+                          {item.product.price_per_element}
                         </TableCell>
                         <TableCell align="right">{item.price}</TableCell>
                       </TableRow>

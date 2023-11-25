@@ -3,15 +3,13 @@ import { Box, Button, Dialog, IconButton, Stack, Tooltip } from "@mui/material";
 import { useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
-import { AddOrderItems } from "./AddOrderItems";
 import BasicSelect from "../OrdersView/CustomersOrders";
-import { RendredItems } from "./RendredItems";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
 import { useRouter } from "next/navigation";
-import HiddenInput from "@/Components/HiddenInput";
-import { Switch } from "antd";
 import { AddWithBarcode } from "./AddWithBarcode";
+import { RendredTable } from "../OrdersView/RendredTable";
+import { AddWithName } from "./AddWithName";
 export const AddOrder = ({ customers, products }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -80,10 +78,12 @@ export const AddOrder = ({ customers, products }) => {
             alignItems={"center"}
           >
             <Box fontWeight={600}>اضافه طلب</Box>
-            <Stack direction={"row"} sx={{ direction: "ltr" }} spacing={"3px"}>
-              <Switch checked={focused} onChange={() => setfocused(!focused)} />
-              <Box fontWeight={500}>Barcode</Box>
-            </Stack>
+            <AddWithName
+              products={products}
+              setItems={setItems}
+              setfocused={setfocused}
+              items={items}
+            />
           </Stack>
           <Stack direction={"column"} marginTop={"1rem"}>
             <BasicSelect
@@ -97,38 +97,12 @@ export const AddOrder = ({ customers, products }) => {
               items={items}
               setItems={setItems}
             />
-            {/* <AddOrderItems
+            <RendredTable
+              total={total}
               items={items}
-              setItems={setItems}
               products={products}
-            /> */}
-            {items.length > 0 && (
-              <Stack
-                direction={"column"}
-                spacing={"8px"}
-                alignItems={"flex-start"}
-                marginY={3}
-              >
-                {items.map((item) => (
-                  <RendredItems
-                    key={item.product}
-                    id={item.product.id}
-                    amount={item.amount}
-                    products={products}
-                    setItems={setItems}
-                  />
-                ))}
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                  width={"100%"}
-                >
-                  <Box>السعر الكلي</Box>
-                  <Box>{total}</Box>
-                </Stack>
-              </Stack>
-            )}
+              setItems={setItems}
+            />
             {items.length > 0 && (
               <Box
                 component={"input"}
@@ -150,6 +124,8 @@ export const AddOrder = ({ customers, products }) => {
                 placeholder={"المدفوع"}
                 value={paid}
                 onChange={(e) => setPaid(e.target.value)}
+                onMouseEnter={() => setfocused(false)}
+                onMouseLeave={() => setfocused(true)}
               />
             )}
             <Button

@@ -4,10 +4,9 @@ import { useEffect, useRef, useState } from "react";
 import toast from "react-hot-toast";
 export const AddWithBarcode = ({ products, items, setItems, focused }) => {
   const [barcode, setBarcode] = useState("");
-  const [amount, SetAmount] = useState("");
+  const [amount, SetAmount] = useState(0);
   const inputRef = useRef(null);
   useEffect(() => {
-    // Create a function to handle the timeout logic
     const handleTimeout = () => {
       if (barcode !== "") {
         submitFunction();
@@ -17,33 +16,26 @@ export const AddWithBarcode = ({ products, items, setItems, focused }) => {
     const timeoutId = setTimeout(handleTimeout, 200);
     return () => clearTimeout(timeoutId);
   }, [barcode]);
-
   const handleInputChange = (event) => {
     setBarcode(event.target.value);
+    console.log(event.target.value);
   };
-
   const submitFunction = () => {
     if (barcode === "") {
       return toast.error("الكود غير موجود");
     }
-    const productFound = products.find(
-      (p) => p.type.barcode === barcode && !p.sold
-    );
+    const productFound = products.find((p) => p.barcode === barcode);
     if (!productFound) {
       return toast.error("المنتج غير موجود");
     }
-    if (productFound.sold) {
+    if (productFound.owned_elements === 0) {
       return toast.error("المننج مباع");
-    }
-    if (productFound.number_of_elements < Number(amount)) {
-      return toast.error("الكميه غير كافيه");
     }
     const itemFound = items.find((p) => p.product.id === productFound.id);
     if (itemFound) {
-      if (productFound.number_of_elements < itemFound.amount + 1) {
+      if (productFound.owned_elements < itemFound.amount + 1) {
         return toast.error("الكميه غير كافيه");
       }
-      // raise the amount of the item by one
       setItems((prev) => {
         return prev.map((item) => {
           if (item.product.id === productFound.id) {
@@ -51,8 +43,7 @@ export const AddWithBarcode = ({ products, items, setItems, focused }) => {
               ...item,
               amount: item.amount + 1,
               price:
-                products.find((p) => p.type.barcode === barcode).type
-                  .price_per_element *
+                products.find((p) => p.barcode === barcode).price_per_element *
                 (item.amount + 1),
             };
           }
@@ -68,10 +59,10 @@ export const AddWithBarcode = ({ products, items, setItems, focused }) => {
           product: {
             id: productFound.id,
           },
-          amount: Number(amount) === 0 ? 1 : Number(amount),
+          amount: amount === 0 ? 1 : amount,
           price:
-            products.find((p) => p.type.barcode === barcode).type
-              .price_per_element * (Number(amount) === 0 ? 1 : Number(amount)),
+            products.find((p) => p.barcode === barcode).price_per_element *
+            (amount === 0 ? 1 : amount),
         },
       ];
     });
@@ -80,8 +71,6 @@ export const AddWithBarcode = ({ products, items, setItems, focused }) => {
   useEffect(() => {
     if (focused) {
       inputRef.current.focus();
-    } else {
-      inputRef.current.blur();
     }
   }, [focused]);
   return (
@@ -110,6 +99,7 @@ export const AddWithBarcode = ({ products, items, setItems, focused }) => {
       onBlur={() => {
         if (focused) inputRef.current.focus();
       }}
+      autoFocus
     />
   );
 };

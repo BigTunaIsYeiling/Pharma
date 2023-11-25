@@ -2,14 +2,13 @@
 import { Box, Button, Dialog, IconButton, Stack } from "@mui/material";
 import { useState } from "react";
 import { RiCloseLine, RiFileEditFill } from "react-icons/ri";
-import BasicSelect from "../OrdersView/CustomersOrders";
-import { AddOrderItems } from "../AddComponents/AddOrderItems";
-import { RendredItems } from "./RendredItems";
 import { useRouter } from "next/navigation";
 import Cookies from "js-cookie";
 import toast from "react-hot-toast";
+import { AddWithBarcode } from "../AddComponents/AddWithBarcode";
+import { RendredTable } from "../OrdersView/RendredTable";
+import { AddWithName } from "../AddComponents/AddWithName";
 export const UpdateOrder = ({
-  customers,
   products,
   Orderpaid,
   OrderItems,
@@ -17,6 +16,7 @@ export const UpdateOrder = ({
   orderId,
 }) => {
   const [open, setOpen] = useState(false);
+  const [focused, setfocused] = useState(true);
   const handleClickOpen = () => {
     setOpen(true);
   };
@@ -63,41 +63,36 @@ export const UpdateOrder = ({
         <RiFileEditFill color="green" />
       </IconButton>
       <Dialog open={open} onClose={handleClose}>
-        <Box padding={"3rem"} sx={{ direction: "rtl" }}>
-          <Box fontWeight={600}>تعديل طلب</Box>
+        <Box
+          padding={"3rem"}
+          sx={{ direction: "rtl", overflow: "hidden", position: "relative" }}
+        >
+          <Stack
+            direction={"row"}
+            justifyContent={"space-between"}
+            alignItems={"center"}
+          >
+            <Box fontWeight={600}>تعديل طلب</Box>
+            <AddWithName
+              products={products}
+              setItems={setItems}
+              setfocused={setfocused}
+              items={items}
+            />
+          </Stack>
           <Stack direction={"column"} marginTop={"1rem"}>
-            <AddOrderItems
+            <AddWithBarcode
+              focused={focused}
+              products={products}
               items={items}
               setItems={setItems}
-              products={products}
             />
-            {items.length > 0 && (
-              <Stack
-                direction={"column"}
-                spacing={"8px"}
-                alignItems={"flex-start"}
-                marginY={3}
-              >
-                {items.map((item) => (
-                  <RendredItems
-                    key={item.product.id + item.amount}
-                    id={item.product.id}
-                    amount={item.amount}
-                    products={products}
-                    setItems={setItems}
-                  />
-                ))}
-                <Stack
-                  direction={"row"}
-                  justifyContent={"space-between"}
-                  alignItems={"center"}
-                  width={"100%"}
-                >
-                  <Box>السعر الكلي</Box>
-                  <Box>{total}</Box>
-                </Stack>
-              </Stack>
-            )}
+            <RendredTable
+              total={total}
+              items={items}
+              products={products}
+              setItems={setItems}
+            />
             {items.length > 0 && (
               <Box
                 component={"input"}
@@ -117,9 +112,10 @@ export const UpdateOrder = ({
                     "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
                 }}
                 placeholder={"المدفوع"}
-                name="paid"
                 value={paid}
                 onChange={(e) => SetPaid(e.target.value)}
+                onMouseEnter={() => setfocused(false)}
+                onMouseLeave={() => setfocused(true)}
               />
             )}
             <Button

@@ -2,7 +2,6 @@ import { Box, Stack } from "@mui/material";
 import { TiDelete } from "react-icons/ti";
 export const RendredItems = ({ id, products, amount, setItems }) => {
   const productData = products.find((product) => product.id === id);
-  const { type } = productData;
   return (
     <Stack
       direction={"row"}
@@ -12,9 +11,9 @@ export const RendredItems = ({ id, products, amount, setItems }) => {
       position={"relative"}
     >
       <Box>
-        x{amount} {type.name}
+        x{amount} {productData.name}
       </Box>
-      <Box>{type.price_per_element * amount}</Box>
+      <Box>{productData.price_per_element * amount}</Box>
       <Box
         component={TiDelete}
         color={"red"}
