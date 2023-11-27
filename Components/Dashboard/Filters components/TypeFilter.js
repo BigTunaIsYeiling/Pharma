@@ -1,6 +1,20 @@
 "use client";
-import { FilterType, FilterTypeBarcode, Filters } from "@/Lib/FiltersSlice";
-import { Box, Drawer, IconButton, Stack, Tooltip } from "@mui/material";
+import {
+  FilterLack,
+  FilterType,
+  FilterTypeBarcode,
+  Filters,
+} from "@/Lib/FiltersSlice";
+import {
+  Box,
+  Checkbox,
+  Drawer,
+  FormControlLabel,
+  FormGroup,
+  IconButton,
+  Stack,
+  Tooltip,
+} from "@mui/material";
 import { useState } from "react";
 import { AiOutlineSliders } from "react-icons/ai";
 import { useDispatch, useSelector } from "react-redux";
@@ -70,6 +84,15 @@ export const TypeFilters = () => {
                 value={filtersOption.typeBarcode}
                 onChange={(e) => dispatch(FilterTypeBarcode(e.target.value))}
               />
+              <FormGroup sx={{ alignSelf: "flex-end", direction: "rtl" }}>
+                <FormControlLabel
+                  sx={{ margin: "10px 0 0 0" }}
+                  control={<Checkbox />}
+                  label="النواقص"
+                  checked={filtersOption.lack}
+                  onChange={(e) => dispatch(FilterLack(e.target.checked))}
+                />
+              </FormGroup>
             </Stack>
           </Stack>
         </Stack>

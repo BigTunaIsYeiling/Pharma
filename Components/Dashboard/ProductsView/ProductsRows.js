@@ -16,7 +16,7 @@ export default function ProductsRows({
       </TableCell>
       <TableCell align="right">{type.name}</TableCell>
       <TableCell align="right">{company.name}</TableCell>
-      <TableCell align="right">{type.owned_elements}</TableCell>
+      <TableCell align="right">{number_of_elements}</TableCell>
       <TableCell align="right">{sold ? "غير موجود" : "متوفر"}</TableCell>
     </TableRow>
   );

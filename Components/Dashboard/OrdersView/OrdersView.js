@@ -1,9 +1,9 @@
 "use client";
 import { Box, Stack } from "@mui/material";
 import { CgMenu } from "react-icons/cg";
-import OrdersTable from "./OrdersTable";
 import { AddOrder } from "../AddComponents/AddOrder";
 import { OrderFilter } from "../Filters components/OrderFilter";
+import { OrdersPagingTable } from "./OrdersPaggingTable";
 const OrdersView = ({ orders, customers, products, user }) => {
   return (
     <Box height={{ xs: "calc(100vh - 120px)", sm: "calc(100vh - 64px)" }}>
@@ -41,7 +41,7 @@ const OrdersView = ({ orders, customers, products, user }) => {
             لا يوجد بيانات
           </Box>
         ) : (
-          <OrdersTable
+          <OrdersPagingTable
             orders={orders}
             customers={customers}
             products={products}

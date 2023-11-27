@@ -4,7 +4,7 @@ import { CgMenu } from "react-icons/cg";
 import { PurchasesTable } from "./PurchasesTable";
 import { PurchaseFilter } from "../Filters components/purchaseFilter";
 import { AddPurchase } from "../AddComponents/AddPurchase";
-export const PurchasesView = ({ purchases, companies }) => {
+export const PurchasesView = ({ purchases, companies, admin }) => {
   return (
     <Box height={{ xs: "calc(100vh - 120px)", sm: "calc(100vh - 64px)" }}>
       <Stack direction={"column"} width="100%" maxHeight={"100%"}>
@@ -41,7 +41,7 @@ export const PurchasesView = ({ purchases, companies }) => {
             لا يوجد بيانات
           </Box>
         ) : (
-          <PurchasesTable purchases={purchases} />
+          <PurchasesTable purchases={purchases} admin={admin} />
         )}
       </Stack>
     </Box>

@@ -127,11 +127,9 @@ const NavigationBar = ({ admin, user, accounts }) => {
             <ListItemButton
               LinkComponent={Link}
               href={opt.path}
-              disabled={(i === 5 && !admin) || (i === 6 && !admin)}
+              disabled={i === 5 && !admin}
               sx={{
-                display:
-                  (i === 5 && !admin && "none") ||
-                  (i === 6 && !admin && "none"),
+                display: i === 5 && !admin && "none",
               }}
             >
               <ListItemIcon>

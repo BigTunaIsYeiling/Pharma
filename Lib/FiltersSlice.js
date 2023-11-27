@@ -10,6 +10,7 @@ const initialState = {
     company: "",
     purchase: "",
     typeBarcode: "",
+    lack: false,
   },
 };
 const FiltersSlice = createSlice({
@@ -46,6 +47,9 @@ const FiltersSlice = createSlice({
     FilterReset: (state) => {
       state.Filters = initialState.Filters;
     },
+    FilterLack: (state, action) => {
+      state.Filters.lack = action.payload;
+    },
   },
 });
 export const FiltersReducer = FiltersSlice.reducer;
@@ -60,5 +64,6 @@ export const {
   FilterPurchase,
   FilterTypeBarcode,
   FilterReset,
+  FilterLack,
 } = FiltersSlice.actions;
 export const Filters = (state) => state.FiltersReducer.Filters;

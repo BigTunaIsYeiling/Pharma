@@ -13,6 +13,7 @@ import { useState } from "react";
 import { BiDownArrowAlt, BiUpArrowAlt } from "react-icons/bi";
 import { UpdateOrder } from "../UpdateComponents/UpdateOrder";
 import { DeleteOrder } from "../DeleteComponents/DeleteOrder";
+import { OrderItems } from "./OrderItems";
 const OrderRows = ({
   i,
   customer,
@@ -132,24 +133,14 @@ const OrderRows = ({
                     <TableCell align="right" sx={{ color: "white" }}>
                       السعر الكلي
                     </TableCell>
+                    <TableCell align="right" sx={{ color: "white" }}>
+                      اضافه للنواقص
+                    </TableCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
                   {items.map((item, index) => {
-                    return (
-                      <TableRow key={item.id}>
-                        <TableCell align="right">{index + 1}</TableCell>
-                        <TableCell component="th" scope="row" align="right">
-                          {item.product.name}
-                        </TableCell>
-                        <TableCell align="right">{item.amount}</TableCell>
-                        <TableCell align="right">{item.remaining}</TableCell>
-                        <TableCell align="right">
-                          {item.product.price_per_element}
-                        </TableCell>
-                        <TableCell align="right">{item.price}</TableCell>
-                      </TableRow>
-                    );
+                    return <OrderItems key={item.id} index={index} {...item} />;
                   })}
                 </TableBody>
               </Table>

@@ -2,7 +2,15 @@
 import { TableCell, TableRow } from "@mui/material";
 import { DeletePurchase } from "../DeleteComponents/DeletePurchases";
 import { UpdatePurchase } from "../UpdateComponents/UpdatePurchase";
-export const PurchasesRows = ({ company, time, price, paid, id, index }) => {
+export const PurchasesRows = ({
+  company,
+  time,
+  price,
+  paid,
+  id,
+  index,
+  admin,
+}) => {
   const date = new Date(time);
   const year = date.getFullYear();
   const month = date.getMonth() + 1;
@@ -16,17 +24,21 @@ export const PurchasesRows = ({ company, time, price, paid, id, index }) => {
       <TableCell align="right">{`${year} / ${month} / ${day}`}</TableCell>
       <TableCell align="right">{price}</TableCell>
       <TableCell align="right">{paid}</TableCell>
-      <TableCell align="right">
-        <UpdatePurchase
-          id={id}
-          company={company.id}
-          paid={paid}
-          price={price}
-        />
-      </TableCell>
-      <TableCell align="right">
-        <DeletePurchase id={id} />
-      </TableCell>
+      {admin && (
+        <TableCell align="right">
+          <UpdatePurchase
+            id={id}
+            company={company.id}
+            paid={paid}
+            price={price}
+          />
+        </TableCell>
+      )}
+      {admin && (
+        <TableCell align="right">
+          <DeletePurchase id={id} />
+        </TableCell>
+      )}
     </TableRow>
   );
 };

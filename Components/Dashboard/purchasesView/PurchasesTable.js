@@ -9,7 +9,7 @@ import Paper from "@mui/material/Paper";
 import { PurchasesRows } from "./PurchasesRows";
 import { Filters } from "@/Lib/FiltersSlice";
 import { useSelector } from "react-redux";
-export const PurchasesTable = ({ purchases }) => {
+export const PurchasesTable = ({ purchases, admin }) => {
   const filtersOption = useSelector(Filters);
   return (
     <TableContainer
@@ -76,22 +76,26 @@ export const PurchasesTable = ({ purchases }) => {
             >
               المدفوع
             </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
-              تعديل
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
-              حذف
-            </TableCell>
+            {admin && (
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
+                تعديل
+              </TableCell>
+            )}
+            {admin && (
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
+                حذف
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody sx={{ position: "relative" }}>
@@ -104,7 +108,7 @@ export const PurchasesTable = ({ purchases }) => {
               }
             })
             .map((row, i) => (
-              <PurchasesRows {...row} key={row.id} index={i} />
+              <PurchasesRows {...row} key={row.id} index={i} admin={admin} />
             ))}
         </TableBody>
       </Table>

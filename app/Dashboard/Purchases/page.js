@@ -6,10 +6,18 @@ export default async function page() {
   const data = await verifyAccess();
   const PurchasesData = GetPurchases(data.key);
   const CompaniesData = Getcompanies(data.key);
+  const UserData = verifyAccess(data.key);
   // const purchases = await PurchasesData;
-  const [purchases, companies] = await Promise.all([
+  const [purchases, companies, user] = await Promise.all([
     PurchasesData,
     CompaniesData,
+    UserData,
   ]);
-  return <PurchasesView purchases={purchases} companies={companies} />;
+  return (
+    <PurchasesView
+      purchases={purchases}
+      companies={companies}
+      admin={user.user.is_admin}
+    />
+  );
 }
