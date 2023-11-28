@@ -25,6 +25,7 @@ const OrderRows = ({
   products,
   id,
   admin,
+  user,
 }) => {
   const [open, setOpen] = useState(false);
   const date = new Date(time);
@@ -74,6 +75,14 @@ const OrderRows = ({
             whiteSpace: "nowrap",
           }}
         >
+          {user.first_name + " " + user.last_name}
+        </TableCell>
+        <TableCell
+          align="right"
+          sx={{
+            whiteSpace: "nowrap",
+          }}
+        >
           {`${year} / ${month} / ${day}`}
         </TableCell>
         <TableCell align="right">{formattedTime()}</TableCell>
@@ -109,7 +118,7 @@ const OrderRows = ({
       <TableRow>
         <TableCell
           style={{ paddingBottom: 0, paddingTop: 0 }}
-          colSpan={9}
+          colSpan={10}
           padding={"none"}
         >
           <Collapse in={open} timeout="auto" unmountOnExit>

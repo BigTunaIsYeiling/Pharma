@@ -91,6 +91,16 @@ const TypesTable = ({ types }) => {
             >
               تعديل
             </TableCell>
+            {filtersOption.lack && (
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
+                ازاله من النواقص
+              </TableCell>
+            )}
           </TableRow>
         </TableHead>
         <TableBody>

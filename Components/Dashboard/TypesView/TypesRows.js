@@ -1,6 +1,12 @@
 "use client";
-import { TableCell, TableRow } from "@mui/material";
+import { IconButton, TableCell, TableRow } from "@mui/material";
 import { UpdateType } from "../UpdateComponents/UpdateType";
+import { Filters } from "@/Lib/FiltersSlice";
+import { useSelector } from "react-redux";
+import { HiDocumentRemove } from "react-icons/hi";
+import toast from "react-hot-toast";
+import { useRouter } from "next/navigation";
+import Cookies from "js-cookie";
 export default function TypesRow({
   name,
   number_of_elements,
@@ -10,6 +16,24 @@ export default function TypesRow({
   id,
   barcode,
 }) {
+  const filtersOption = useSelector(Filters);
+  const router = useRouter();
+  const RemoveFromLack = async () => {
+    await fetch(`http://127.0.0.1:8000/products/types/${id}/`, {
+      method: "PATCH",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+        Authorization: `Bearer ${Cookies.get("key")}`,
+      },
+      body: JSON.stringify({ lack: false }),
+    }).then((res) => {
+      if (res.ok) {
+        router.refresh();
+        return toast.success("تم الازاله من النواقص");
+      }
+    });
+  };
   return (
     <TableRow sx={{ "&:last-child td, &:last-child th": { border: 0 } }}>
       <TableCell component="th" align="right">
@@ -31,6 +55,13 @@ export default function TypesRow({
           barcode={barcode}
         />
       </TableCell>
+      {filtersOption.lack && (
+        <TableCell align="right">
+          <IconButton onClick={RemoveFromLack}>
+            <HiDocumentRemove color="black" />
+          </IconButton>
+        </TableCell>
+      )}
     </TableRow>
   );
 }

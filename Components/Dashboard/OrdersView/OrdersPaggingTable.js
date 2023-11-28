@@ -70,6 +70,14 @@ export const OrdersPagingTable = ({ orders, customers, products, admin }) => {
                   whiteSpace: "nowrap",
                 }}
               >
+                بواسطه
+              </TableCell>
+              <TableCell
+                align="right"
+                sx={{
+                  whiteSpace: "nowrap",
+                }}
+              >
                 التاريخ
               </TableCell>
               <TableCell
