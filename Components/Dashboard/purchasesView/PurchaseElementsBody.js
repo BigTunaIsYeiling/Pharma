@@ -21,7 +21,6 @@ export const PurchaseElementsBody = ({ id }) => {
     `http://127.0.0.1:8000/products/?incoming_order=${id}`,
     fetcher
   );
-  console.log(data);
   return (
     <Box>
       <Table size="small">
@@ -53,15 +52,6 @@ export const PurchaseElementsBody = ({ id }) => {
                 color: "white",
               }}
             >
-              عدد شرائط العلبه
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-                color: "white",
-              }}
-            >
               السعر
             </TableCell>
             <TableCell
@@ -71,7 +61,7 @@ export const PurchaseElementsBody = ({ id }) => {
                 color: "white",
               }}
             >
-              الكميه
+              عدد العلب
             </TableCell>
           </TableRow>
         </TableHead>
