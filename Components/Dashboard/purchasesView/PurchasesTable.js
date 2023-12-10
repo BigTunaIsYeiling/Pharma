@@ -76,6 +76,14 @@ export const PurchasesTable = ({ purchases, admin }) => {
             >
               المدفوع
             </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
+              المنتجات
+            </TableCell>
             {admin && (
               <TableCell
                 align="right"
