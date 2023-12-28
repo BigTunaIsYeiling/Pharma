@@ -43,7 +43,7 @@ export const PurchaseElementsBody = ({ id }) => {
                 color: "white",
               }}
             >
-              باركود
+              عدد العلب
             </TableCell>
             <TableCell
               align="right"
@@ -61,7 +61,7 @@ export const PurchaseElementsBody = ({ id }) => {
                 color: "white",
               }}
             >
-              عدد العلب
+              باركود
             </TableCell>
           </TableRow>
         </TableHead>

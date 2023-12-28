@@ -6,11 +6,11 @@ export const PurchaseElemntsRows = ({ i, type, number_of_boxes, price }) => {
         {i + 1}
       </TableCell>
       <TableCell align="right">{type.name}</TableCell>
+      <TableCell align="right">{number_of_boxes}</TableCell>
+      <TableCell align="right">{price}</TableCell>
       <TableCell align="right">
         {type.barcode === "" || !type.barcode ? "----" : type.barcode}
       </TableCell>
-      <TableCell align="right">{price}</TableCell>
-      <TableCell align="right">{number_of_boxes}</TableCell>
     </TableRow>
   );
 };
