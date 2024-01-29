@@ -144,6 +144,15 @@ export const OrdersPagingTable = ({ orders, customers, products, admin }) => {
                 }
               })
               .filter((row) => {
+                if (filtersOption.filterOrderUser.length === 0) {
+                  return row;
+                } else {
+                  const fullName =
+                    `${row.user.first_name} ${row.user.last_name}`.toLowerCase();
+                  return fullName.includes(filtersOption.filterOrderUser);
+                }
+              })
+              .filter((row) => {
                 if (filtersOption.orderDate) {
                   return row.time.startsWith(filtersOption.orderDate);
                 } else {

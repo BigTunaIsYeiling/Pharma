@@ -21,7 +21,7 @@ export const AddOrder = ({ customers, products }) => {
     setfocused(false);
   };
   const [items, setItems] = useState([]);
-  const [paid, setPaid] = useState(0);
+  const [paid, setPaid] = useState(null);
   const [customer, setCustomer] = useState("");
   const router = useRouter();
   const calculateTotalPrice = () => {
@@ -36,7 +36,7 @@ export const AddOrder = ({ customers, products }) => {
       method: "POST",
       body: JSON.stringify({
         customer,
-        paid,
+        paid: paid || paid != "" ? paid : null,
         items: items.map((item) => {
           return { product: item.product.id, amount: item.amount };
         }),
@@ -60,6 +60,12 @@ export const AddOrder = ({ customers, products }) => {
     });
   };
   const [focused, setfocused] = useState(true);
+
+  const handleKeyPress = (event) => {
+    if (event.key === "Enter") {
+      AddOrderMethod();
+    }
+  };
   return (
     <>
       <Tooltip title="اضافه طلب" arrow>
@@ -71,6 +77,7 @@ export const AddOrder = ({ customers, products }) => {
         <Box
           padding={"3rem"}
           sx={{ direction: "rtl", overflow: "hidden", position: "relative" }}
+          onKeyDown={handleKeyPress}
         >
           <Stack
             direction={"row"}
