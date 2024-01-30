@@ -36,7 +36,7 @@ export const AddOrder = ({ customers, products }) => {
       method: "POST",
       body: JSON.stringify({
         customer,
-        paid: paid || paid != "" ? paid : null,
+        paid,
         items: items.map((item) => {
           return { product: item.product.id, amount: item.amount };
         }),
@@ -51,7 +51,7 @@ export const AddOrder = ({ customers, products }) => {
         toast.success("تمت بنجاح");
         setCustomer("");
         setItems([]);
-        setPaid("");
+        setPaid(null);
         return router.refresh();
       } else {
         const data = res.json();
@@ -60,7 +60,6 @@ export const AddOrder = ({ customers, products }) => {
     });
   };
   const [focused, setfocused] = useState(true);
-
   const handleKeyPress = (event) => {
     if (event.key === "Enter") {
       AddOrderMethod();

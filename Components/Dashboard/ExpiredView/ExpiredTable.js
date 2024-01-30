@@ -8,6 +8,7 @@ import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
 import ExRows from "./ExpiredRows";
 const ExTable = ({ products }) => {
+  console.log(products);
   return (
     <TableContainer
       component={Paper}
@@ -72,6 +73,14 @@ const ExTable = ({ products }) => {
               }}
             >
               الحاله
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
+              تاريخ الانتهاء
             </TableCell>
           </TableRow>
         </TableHead>
