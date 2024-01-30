@@ -16,6 +16,7 @@ import { RxDoubleArrowLeft } from "react-icons/rx";
 import { HiOutlineOfficeBuilding } from "react-icons/hi";
 import { AiOutlineShoppingCart } from "react-icons/ai";
 import { BiLogOut } from "react-icons/bi";
+import { BsFillCalendarMinusFill } from "react-icons/bs";
 import { CgDanger } from "react-icons/cg";
 import { IoPeople } from "react-icons/io5";
 import { SiProducthunt } from "react-icons/si";
@@ -54,6 +55,10 @@ const NavigationBar = ({ admin, user, accounts }) => {
     {
       text: "اوشك على الانتهاء",
       path: "/Dashboard/Expired",
+    },
+    {
+      text: "نواقص",
+      path: "/Dashboard/Scarce",
     },
     {
       text: "عملاء",
@@ -156,6 +161,14 @@ const NavigationBar = ({ admin, user, accounts }) => {
                   />
                 )}
                 {i === 3 && (
+                  <BsFillCalendarMinusFill
+                    color={
+                      pathname === "/Dashboard/Scarce" ? "#0C356A" : "#777"
+                    }
+                    size={"22px"}
+                  />
+                )}
+                {i === 4 && (
                   <IoPeople
                     color={
                       pathname === "/Dashboard/Customers" ? "#0C356A" : "#777"
@@ -163,7 +176,7 @@ const NavigationBar = ({ admin, user, accounts }) => {
                     size={"22px"}
                   />
                 )}
-                {i === 4 && (
+                {i === 5 && (
                   <HiClipboardDocumentList
                     color={
                       pathname === "/Dashboard/Orders" ? "#0C356A" : "#777"
@@ -171,7 +184,7 @@ const NavigationBar = ({ admin, user, accounts }) => {
                     size={"22px"}
                   />
                 )}
-                {i === 5 && (
+                {i === 6 && (
                   <HiOutlineOfficeBuilding
                     color={
                       pathname === "/Dashboard/Companies" ? "#0C356A" : "#777"
@@ -179,7 +192,7 @@ const NavigationBar = ({ admin, user, accounts }) => {
                     size={"22px"}
                   />
                 )}
-                {i === 6 && (
+                {i === 7 && (
                   <AiOutlineShoppingCart
                     color={
                       pathname === "/Dashboard/Purchases" ? "#0C356A" : "#777"

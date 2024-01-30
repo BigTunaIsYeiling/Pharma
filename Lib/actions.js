@@ -85,6 +85,25 @@ export async function AddCcompanyAction(data) {
   revalidatePath("/Dashboard/Companies");
   return res;
 }
+export async function AddScarceAction(data) {
+  const name = data.get("name");
+  const amount = data.get("amount");
+  const response = await fetch("http://127.0.0.1:8000/products/scarce/", {
+    method: "POST",
+    body: JSON.stringify({
+      name,
+      amount,
+    }),
+    headers: {
+      Accept: "application/json",
+      "Content-Type": "application/json",
+      Authorization: `Bearer ${cookies().get("key").value}`,
+    },
+  });
+  const res = await response.json();
+  revalidatePath("/Dashboard/Scarce");
+  return res;
+}
 
 export async function AddProductAction(data) {
   const barcode = data.get("barcode");

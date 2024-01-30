@@ -6,8 +6,8 @@ import TableContainer from "@mui/material/TableContainer";
 import TableHead from "@mui/material/TableHead";
 import TableRow from "@mui/material/TableRow";
 import Paper from "@mui/material/Paper";
-import ExRows from "./ExpiredRows";
-const ExTable = ({ products }) => {
+import SCRows from "./ScarcesRows";
+const SCTable = ({ products }) => {
   return (
     <TableContainer
       component={Paper}
@@ -55,14 +55,6 @@ const ExTable = ({ products }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              الكود
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
               المتبقي
             </TableCell>
             <TableCell
@@ -71,25 +63,17 @@ const ExTable = ({ products }) => {
                 whiteSpace: "nowrap",
               }}
             >
-              الحاله
-            </TableCell>
-            <TableCell
-              align="right"
-              sx={{
-                whiteSpace: "nowrap",
-              }}
-            >
-              تاريخ الانتهاء
+              حذف
             </TableCell>
           </TableRow>
         </TableHead>
         <TableBody sx={{ position: "relative" }}>
           {products.map((row, i) => (
-            <ExRows {...row} key={row.id + i + row.barcode} index={i} />
+            <SCRows {...row} key={row.id + i} index={i} />
           ))}
         </TableBody>
       </Table>
     </TableContainer>
   );
 };
-export default ExTable;
+export default SCTable;
