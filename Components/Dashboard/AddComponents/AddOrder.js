@@ -1,6 +1,6 @@
 "use client";
 import { Box, Button, Dialog, IconButton, Stack, Tooltip } from "@mui/material";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { MdAddCircle } from "react-icons/md";
 import { RiCloseLine } from "react-icons/ri";
 import BasicSelect from "../OrdersView/CustomersOrders";
@@ -77,6 +77,7 @@ export const AddOrder = ({ customers, products }) => {
           padding={"3rem"}
           sx={{ direction: "rtl", overflow: "hidden", position: "relative" }}
           onKeyDown={handleKeyPress}
+          tabIndex={0}
         >
           <Stack
             direction={"row"}
