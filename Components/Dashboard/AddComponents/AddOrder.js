@@ -36,7 +36,7 @@ export const AddOrder = ({ customers, products }) => {
       method: "POST",
       body: JSON.stringify({
         customer,
-        paid,
+        paid: !paid || paid == "" ? null : paid,
         items: items.map((item) => {
           return { product: item.product.id, amount: item.amount };
         }),
@@ -60,11 +60,6 @@ export const AddOrder = ({ customers, products }) => {
     });
   };
   const [focused, setfocused] = useState(true);
-  const handleKeyPress = (event) => {
-    if (event.key === "Enter") {
-      AddOrderMethod();
-    }
-  };
   return (
     <>
       <Tooltip title="اضافه طلب" arrow>
@@ -76,8 +71,6 @@ export const AddOrder = ({ customers, products }) => {
         <Box
           padding={"3rem"}
           sx={{ direction: "rtl", overflow: "hidden", position: "relative" }}
-          onKeyDown={handleKeyPress}
-          tabIndex={0}
         >
           <Stack
             direction={"row"}
