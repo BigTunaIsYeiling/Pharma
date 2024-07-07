@@ -89,6 +89,14 @@ const TypesTable = ({ types }) => {
                 whiteSpace: "nowrap",
               }}
             >
+              الحد الادني للنقص
+            </TableCell>
+            <TableCell
+              align="right"
+              sx={{
+                whiteSpace: "nowrap",
+              }}
+            >
               تعديل
             </TableCell>
             {filtersOption.lack && (

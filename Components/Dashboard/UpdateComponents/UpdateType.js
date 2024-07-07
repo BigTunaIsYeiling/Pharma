@@ -11,6 +11,7 @@ export const UpdateType = ({
   number_of_elements,
   id,
   barcode,
+  minimum
 }) => {
   const [open, setOpen] = useState(false);
   const handleClickOpen = () => {
@@ -24,6 +25,7 @@ export const UpdateType = ({
     number_of_elements: number_of_elements,
     price_per_element,
     barcode,
+    minimum
   });
   const handleInput = (e) => {
     setData({ ...data, [e.target.name]: e.target.value });
@@ -118,6 +120,27 @@ export const UpdateType = ({
               placeholder={"العدد"}
               name="number_of_elements"
               value={data.number_of_elements}
+              onChange={handleInput}
+            />
+            <Box
+              component={"input"}
+              autoCorrect={"false"}
+              paddingY={"10px"}
+              paddingX="8px"
+              sx={{
+                outline: "0",
+                border: "0",
+                ":focus": {
+                  boxShadow: " rgba(3, 102, 214, 0.3) 0px 0px 0px 3px",
+                },
+                borderRadius: "3px",
+                fontWeight: 400,
+                boxShadow:
+                  "rgba(0, 0, 0, 0.02) 0px 1px 3px 0px, rgba(27, 31, 35, 0.15) 0px 0px 0px 1px",
+              }}
+              placeholder={"الحد الادنى للنقص"}
+              name="minimum"
+              value={data.minimum}
               onChange={handleInput}
             />
             <Box

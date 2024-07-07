@@ -30,6 +30,7 @@ export async function AddTypeAction(data) {
   const name = data.get("name");
   const elements = data.get("elements");
   const barcode = data.get("barcode");
+  const minimum = data.get("minimum");
   const response = await fetch("http://127.0.0.1:8000/products/types/", {
     method: "POST",
     body: JSON.stringify({
@@ -37,6 +38,7 @@ export async function AddTypeAction(data) {
       number_of_elements: elements,
       price_per_element: price,
       barcode,
+      minimum
     }),
     headers: {
       Accept: "application/json",

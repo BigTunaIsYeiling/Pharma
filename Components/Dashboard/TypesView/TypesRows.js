@@ -15,6 +15,7 @@ export default function TypesRow({
   boxes_owned,
   id,
   barcode,
+  minimum
 }) {
   const filtersOption = useSelector(Filters);
   const router = useRouter();
@@ -46,6 +47,7 @@ export default function TypesRow({
       <TableCell align="right">{number_of_elements}</TableCell>
       <TableCell align="right">{price_per_element}</TableCell>
       <TableCell align="right">{boxes_owned}</TableCell>
+      <TableCell align="right">{minimum}</TableCell>
       <TableCell align="right">
         <UpdateType
           id={id}
@@ -53,6 +55,7 @@ export default function TypesRow({
           number_of_elements={number_of_elements}
           price_per_element={price_per_element}
           barcode={barcode}
+          minimum={minimum}
         />
       </TableCell>
       {filtersOption.lack && (
